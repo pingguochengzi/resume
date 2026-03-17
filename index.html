@@ -2,530 +2,558 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>钱文静 · AI产品经理 · 科技风个人站</title>
-    <!-- 字体 & 基础图标 (使用Font Awesome科技感图标库) -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>钱文静 · 绿色AI产品简历</title>
+    <!-- 字体 & 图标 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
         }
 
         body {
-            background: #0a0c0f;
-            color: #eef2f6;
+            font-family: 'Inter', sans-serif;
+            background: #eaf7e1;  /* 柔和绿底 */
             height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;  /* 一屏内无滚动条，整个页面固定 */
+            width: 100vw;
+            overflow: hidden;      /* 一屏满幅，无滚动条 */
+            color: #1e3a2f;
+            line-height: 1.5;
+            font-weight: 400;
             position: relative;
         }
 
-        /* 炫酷科技背景：动态网格+光晕 */
-        .bg-grid {
+        /* 动态AI粒子背景 (极简科技感) */
+        #ai-bg {
             position: absolute;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                linear-gradient(rgba(0, 255, 255, 0.02) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 255, 255, 0.02) 1px, transparent 1px);
-            background-size: 40px 40px;
+            top: 0; left: 0; width: 100%; height: 100%;
             z-index: 0;
+            opacity: 0.25;
             pointer-events: none;
         }
-
-        .glow {
+        .particle {
             position: absolute;
-            width: 80vw;
-            height: 80vw;
-            background: radial-gradient(circle at 30% 50%, rgba(0, 180, 255, 0.15), transparent 60%);
-            filter: blur(80px);
-            z-index: 0;
-            animation: moveGlow 16s infinite alternate ease-in-out;
+            background: #2b7a4b;
+            border-radius: 50%;
+            filter: blur(6px);
+            animation: floatParticle 16s infinite alternate ease-in-out;
+        }
+        @keyframes floatParticle {
+            0% { transform: translate(0, 0) scale(1); opacity: 0.1; }
+            100% { transform: translate(40px, -30px) scale(1.3); opacity: 0.3; }
         }
 
-        @keyframes moveGlow {
-            0% { transform: translate(-10%, -10%) scale(1); opacity: 0.5; }
-            100% { transform: translate(10%, 20%) scale(1.2); opacity: 0.8; }
-        }
-
-        /* 主面板 — 三栏一屏  */
+        /* 主容器——三栏弹性布局 */
         .dashboard {
-            position: relative;
-            z-index: 10;
-            width: 98vw;
-            max-width: 1600px;
-            height: 96vh;
-            background: rgba(12, 20, 28, 0.7);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(0, 255, 255, 0.25);
-            border-radius: 40px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), 0 0 30px rgba(0, 255, 255, 0.3);
-            display: grid;
-            grid-template-columns: 1.1fr 1.8fr 1.4fr;  /* 左窄，中宽，右适中 */
-            overflow: hidden;
-            padding: 12px;
-            gap: 12px;
-        }
-
-        /* 通用列样式 */
-        .col {
-            background: rgba(5, 15, 25, 0.5);
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
-            border: 1px solid rgba(0, 255, 255, 0.2);
-            border-radius: 28px;
-            padding: 24px 18px;
-            box-shadow: inset 0 0 20px rgba(0, 255, 255, 0.05), 0 8px 20px rgba(0, 0, 0, 0.6);
-            transition: all 0.2s ease;
             display: flex;
-            flex-direction: column;
-            overflow-y: auto;    /* 内容过多可列内滚动，但一屏内整体不滚动。特意让内容适应高度 */
-            scrollbar-width: thin;
-            scrollbar-color: #00ffff #001a1a;
+            height: 100vh;
+            width: 100vw;
+            position: relative;
+            z-index: 5;
+            backdrop-filter: blur(2px);
+            padding: 14px 18px;
+            gap: 18px;
         }
 
-        .col::-webkit-scrollbar {
+        /* 左侧栏 (个人经历) */
+        .left-panel {
+            flex: 1.1;
+            min-width: 260px;
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 32px;
+            padding: 28px 22px;
+            box-shadow: 0 20px 40px -12px rgba(32, 77, 62, 0.3);
+            border: 1px solid rgba(110, 170, 110, 0.3);
+            transition: all 0.2s;
+            overflow-y: auto;      /* 内容过多时内部滚动，但高度固定在一屏内 */
+            scrollbar-width: thin;
+            scrollbar-color: #79b091 #e3f0da;
+        }
+        .left-panel::-webkit-scrollbar {
             width: 5px;
         }
-        .col::-webkit-scrollbar-track {
-            background: #001a1a;
-        }
-        .col::-webkit-scrollbar-thumb {
-            background: #0ff;
+        .left-panel::-webkit-scrollbar-track {
+            background: #e3f0da;
             border-radius: 10px;
-            box-shadow: 0 0 10px cyan;
+        }
+        .left-panel::-webkit-scrollbar-thumb {
+            background: #79b091;
+            border-radius: 10px;
         }
 
-        /* 左侧个人经历 = 教育 + 荣誉 + 社团 + 技能/证书 (符合左侧个人经历范畴) */
-        .left-col h2, .mid-col h2, .right-col h2 {
-            font-size: 1.3rem;
-            letter-spacing: 2px;
-            margin-bottom: 20px;
+        /* 中间栏 (项目时间线) */
+        .mid-panel {
+            flex: 1.6;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 32px;
+            padding: 28px 22px;
+            box-shadow: 0 20px 40px -12px rgba(32, 77, 62, 0.3);
+            border: 1px solid rgba(110, 170, 110, 0.3);
+            overflow-y: auto;
+            scrollbar-width: thin;
+        }
+
+        /* 右侧栏 (AI对话) */
+        .right-panel {
+            flex: 1.3;
+            min-width: 320px;
+            background: rgba(245, 255, 240, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 32px;
+            padding: 18px;
+            box-shadow: 0 20px 40px -12px #2b5a3b50;
+            border: 1px solid #a0cf9e;
+            display: flex;
+            flex-direction: column;
             position: relative;
-            display: inline-block;
-            text-transform: uppercase;
-            background: linear-gradient(45deg, #aaffff, #4af0ff);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            border-bottom: 2px solid cyan;
-            padding-bottom: 5px;
+            overflow: hidden;
         }
 
-        /* 个人条目卡片 */
-        .exp-item {
-            background: rgba(0, 255, 255, 0.03);
-            border-left: 3px solid cyan;
-            padding: 14px 16px;
+        /* 右侧头部 */
+        .ai-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding-bottom: 14px;
+            border-bottom: 2px dashed #6ba381;
             margin-bottom: 16px;
-            border-radius: 0 16px 16px 0;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-            transition: 0.2s;
-            backdrop-filter: blur(2px);
         }
-
-        .exp-item:hover {
-            border-left-width: 6px;
-            background: rgba(0, 255, 255, 0.1);
-            box-shadow: 0 0 20px cyan;
-            transform: translateX(4px);
+        .ai-header i {
+            font-size: 1.6rem;
+            color: #2e7d5e;
+            filter: drop-shadow(0 0 6px #abebc0);
         }
-
-        .exp-item .title {
+        .ai-header h3 {
             font-weight: 600;
-            font-size: 1.1rem;
-            color: #b0f0ff;
+            font-size: 1.3rem;
+            letter-spacing: -0.2px;
+            color: #1c4b3c;
+        }
+        .ai-header span {
+            background: #2a6041;
+            color: #f1ffe6;
+            font-size: 0.7rem;
+            padding: 4px 10px;
+            border-radius: 40px;
+            margin-left: auto;
+            font-weight: 500;
+        }
+
+        /* 对话iframe容器 (占满剩余高度) */
+        .coze-wrapper {
+            flex: 1;
+            width: 100%;
+            border-radius: 24px;
+            overflow: hidden;
+            background: #ffffffc2;
+            box-shadow: inset 0 0 0 1px #bcdbb0, 0 8px 18px -10px #284f36;
+            transition: box-shadow 0.3s;
+        }
+        .coze-wrapper iframe {
+            width: 100%;
+            height: 100%;
+            min-height: 400px;     /* 保证可见高度，父容器flex撑开 */
+            border: none;
+            background: transparent;
+        }
+
+        /* ---------- 左侧个人经历样式 ---------- */
+        .name-title {
+            margin-bottom: 28px;
+        }
+        .name-title h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #0f3d2c;
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+        }
+        .badge {
+            display: inline-block;
+            background: #2d6e4b;
+            color: #ebffe3;
+            border-radius: 40px;
+            padding: 5px 16px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin: 8px 0 12px 0;
+            box-shadow: 0 2px 6px #a5d6b3;
+        }
+        .contact-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px 10px;
+            background: #e2f0da;
+            padding: 14px 16px;
+            border-radius: 26px;
+            margin: 16px 0 24px;
+            font-size: 0.9rem;
+            border: 1px solid #a7cfaa;
+        }
+        .contact-row i {
+            color: #1d6e43;
+            width: 22px;
+        }
+        .contact-row span {
+            color: #173e2b;
+            font-weight: 500;
+        }
+
+        .edu-block {
+            background: #f5ffecee;
+            border-radius: 26px;
+            padding: 18px;
+            margin-bottom: 28px;
+        }
+        .edu-item {
+            display: flex;
+            gap: 14px;
+            margin-bottom: 20px;
+        }
+        .edu-year {
+            font-weight: 600;
+            color: #1f7042;
+            min-width: 95px;
+            font-size: 0.95rem;
+        }
+        .edu-desc p {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        .edu-desc .note {
+            font-size: 0.85rem;
+            color: #2b553b;
+            background: #dff0d3;
+            padding: 4px 10px;
+            border-radius: 24px;
+            display: inline-block;
+        }
+
+        .award-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px 8px;
+            margin: 18px 0 20px;
+        }
+        .award-item {
+            background: #ccedcf;
+            padding: 8px 14px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: #154e2b;
+            border: 1px solid #7cb385;
+        }
+
+        .skillset h3, .lang h3 {
+            font-size: 1rem;
+            margin-bottom: 12px;
+            color: #0b4629;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+        .skill-tag {
+            background: white;
+            border-radius: 30px;
+            padding: 6px 16px;
+            font-size: 0.8rem;
+            border: 1px solid #80b48a;
+            color: #1a4b32;
+            font-weight: 500;
+            box-shadow: 0 2px 4px #c0e0c0;
+        }
+
+        /* ---------- 中间 时间线 (项目) ---------- */
+        .timeline-title {
             display: flex;
             align-items: center;
             gap: 8px;
+            margin-bottom: 30px;
+        }
+        .timeline-title i {
+            font-size: 1.8rem;
+            color: #2a7e50;
         }
 
-        .exp-item .sub {
-            color: #a0b5c9;
-            font-size: 0.85rem;
-            margin: 6px 0 4px;
-        }
-
-        .exp-item .desc {
-            font-size: 0.9rem;
-            color: #cbd5e6;
-        }
-
-        .badge {
-            background: rgba(0, 200, 255, 0.2);
-            border: 1px solid cyan;
-            border-radius: 40px;
-            padding: 4px 10px;
-            font-size: 0.7rem;
-            color: #aaffff;
-            display: inline-block;
-            margin-right: 6px;
-            margin-bottom: 6px;
-        }
-
-        /* 中间项目经历 — 时间线布局 (倒序: 最近在上) */
         .timeline {
-            position: relative;
-            padding-left: 20px;
-        }
-
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 8px;
-            top: 8px;
-            bottom: 8px;
-            width: 2px;
-            background: linear-gradient(180deg, cyan, #006b6b, cyan);
-            box-shadow: 0 0 15px cyan;
-        }
-
-        .timeline-node {
-            position: relative;
-            margin-bottom: 32px;
-            padding-left: 28px;
-        }
-
-        .timeline-node::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 8px;
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            background: #0a0c0f;
-            border: 3px solid cyan;
-            box-shadow: 0 0 25px cyan, 0 0 5px white inset;
-            z-index: 2;
-            transition: 0.2s;
-            animation: pulseDot 2s infinite;
-        }
-
-        @keyframes pulseDot {
-            0% { box-shadow: 0 0 5px cyan, 0 0 10px cyan; }
-            50% { box-shadow: 0 0 20px cyan, 0 0 30px white; }
-            100% { box-shadow: 0 0 5px cyan, 0 0 10px cyan; }
-        }
-
-        .project-card {
-            background: rgba(0, 20, 30, 0.6);
-            border-radius: 24px;
-            padding: 18px;
-            border: 1px solid rgba(0, 255, 255, 0.2);
-            backdrop-filter: blur(5px);
-            transition: 0.3s;
-        }
-
-        .project-card:hover {
-            border-color: cyan;
-            box-shadow: 0 0 40px rgba(0, 255, 255, 0.4);
-            transform: scale(1.02) translateY(-3px);
-        }
-
-        .project-date {
-            font-size: 0.8rem;
-            color: #4ab5ff;
-            letter-spacing: 1px;
-            margin-bottom: 6px;
             display: flex;
-            align-items: center;
-            gap: 5px;
+            flex-direction: column;
+            gap: 24px;
         }
-
-        .project-name {
-            font-size: 1.3rem;
-            font-weight: 700;
-            background: linear-gradient(to right, #fff, #b0f0ff);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            margin-bottom: 8px;
+        .timeline-item {
+            position: relative;
+            padding-left: 28px;
+            border-left: 3px solid #6cb389;
+            margin-left: 12px;
+            transition: 0.2s;
         }
-
+        .timeline-item:hover {
+            border-left-color: #205c37;
+            background: #f3fdee60;
+            border-radius: 0 16px 16px 0;
+        }
+        .timeline-marker {
+            position: absolute;
+            left: -11px;
+            top: 0;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #f0fff0;
+            border: 4px solid #2e7d5e;
+            box-shadow: 0 0 0 3px #ccf0d3;
+        }
+        .timeline-date {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #0c6736;
+            margin-bottom: 6px;
+            letter-spacing: 0.2px;
+        }
+        .timeline-content h4 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #0a3522;
+            margin-bottom: 6px;
+        }
         .project-stats {
             display: flex;
             flex-wrap: wrap;
             gap: 12px 18px;
-            margin-top: 12px;
+            margin: 12px 0 8px;
         }
-
-        .stat-item {
-            background: rgba(0, 255, 255, 0.08);
+        .stat {
+            background: #daf1d3;
             border-radius: 30px;
-            padding: 6px 18px;
-            border: 1px solid cyan;
+            padding: 5px 14px;
+            font-size: 0.85rem;
             font-weight: 600;
-            color: #fff;
-            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
-            font-size: 0.9rem;
-            white-space: nowrap;
+            color: #0b482c;
+            border: 1px solid #9ac99a;
         }
-
-        .stat-item i {
-            color: cyan;
+        .stat i {
             margin-right: 6px;
+            color: #197a45;
         }
 
-        /* 右侧 AI 对话区 — 嵌入coze iframe */
-        .coze-container {
-            width: 100%;
-            height: 100%;
-            min-height: 600px;
-            border-radius: 24px;
-            overflow: hidden;
-            border: 2px solid rgba(0, 255, 255, 0.5);
-            box-shadow: 0 0 40px rgba(0, 255, 255, 0.3), inset 0 0 20px rgba(0, 255, 255, 0.2);
-            transition: 0.3s;
-            background: #031016; /* 后备 */
+        /* 炫酷小动效点缀 */
+        .glow-text {
+            background: linear-gradient(120deg, #1a6238, #30855b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+        }
+        .ai-pulse {
+            animation: pulse 3s infinite;
+        }
+        @keyframes pulse {
+            0% { opacity: 0.7; }
+            50% { opacity: 1; transform: scale(1.02); }
         }
 
-        .coze-container:hover {
-            border-color: #ffb3ff;
-            box-shadow: 0 0 70px #00ffff, 0 0 30px #ff00ff;
-        }
-
-        iframe {
-            width: 100%;
-            height: 100%;
-            display: block;
-            border: none;
-        }
-
-        /* 右侧头部点缀 */
-        .ai-label {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 16px;
-            color: #baf0ff;
-            font-size: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-        }
-
-        .ai-label i {
-            font-size: 1.8rem;
-            color: cyan;
-            filter: drop-shadow(0 0 10px magenta);
-        }
-
-        /* 左侧荣誉等微调 */
-        .honor-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin: 10px 0;
-        }
-
-        .honor-item {
-            background: linear-gradient(145deg, #0f1c2b, #031016);
-            border: 1px solid cyan;
-            border-radius: 30px;
-            padding: 6px 15px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: #9eefff;
-            box-shadow: 0 0 5px cyan;
-        }
-
-        .divider {
-            height: 1px;
-            background: linear-gradient(90deg, transparent, cyan, transparent);
-            margin: 18px 0;
-        }
-
-        /* 确保一屏内不溢出（滚动在列内） */
-        .col {
-            overflow-y: auto;
-        }
-
-        /* 移动端不处理，但桌面完美 */
-        .left-col .profile-mini {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            margin-bottom: 24px;
-            background: rgba(0,255,255,0.03);
-            padding: 16px;
-            border-radius: 36px;
-            border: 1px solid cyan;
-        }
-
-        .avatar-icon {
-            font-size: 3rem;
-            color: cyan;
-            filter: drop-shadow(0 0 15px blue);
-        }
-
-        .contact i {
-            margin-right: 8px;
-            color: cyan;
-            width: 20px;
+        /* 简单的AI装饰线条 */
+        .right-panel::after {
+            content: '';
+            position: absolute;
+            bottom: 20px; right: 20px;
+            width: 140px; height: 140px;
+            background: radial-gradient(circle, #a3e0b3 0%, transparent 70%);
+            border-radius: 50%;
+            z-index: -1;
+            filter: blur(40px);
         }
     </style>
 </head>
 <body>
-    <div class="bg-grid"></div>
-    <div class="glow"></div>
+    <!-- 动态粒子背景 (简约AI元素) -->
+    <div id="ai-bg">
+        <div class="particle" style="width: 200px; height: 200px; top: 5%; left: -2%; background: #74b084;"></div>
+        <div class="particle" style="width: 280px; height: 280px; bottom: 0%; right: 0%; background: #5c9e74; filter: blur(40px);"></div>
+        <div class="particle" style="width: 150px; height: 150px; top: 40%; left: 60%; background: #40875c;"></div>
+        <div class="particle" style="width: 100px; height: 100px; bottom: 20%; left: 30%; background: #9fd3a5;"></div>
+    </div>
 
+    <!-- 三栏主布局 -->
     <div class="dashboard">
-        <!-- 左侧：个人经历 (教育、荣誉、社团、技能证书等) -->
-        <div class="col left-col">
-            <div class="profile-mini">
-                <i class="fas fa-user-astronaut avatar-icon"></i>
-                <div>
-                    <div style="font-size:1.5rem; font-weight:700; background:linear-gradient(45deg,#0ff,#f0f); -webkit-background-clip:text; background-clip:text; color:transparent;">钱文静</div>
-                    <div style="color:#9bbdf0"><i class="fas fa-flag" style="color:cyan;"></i> 中共党员 · 双一流硕士</div>
+        <!-- 左侧：个人经历 + 教育背景 + 技能/证书 -->
+        <div class="left-panel">
+            <div class="name-title">
+                <h1>钱文静</h1>
+                <div class="badge"><i class="fas fa-flag" style="margin-right: 6px;"></i>中共党员 · 硕士（双一流）</div>
+                <div class="contact-row">
+                    <div><i class="fas fa-phone-alt"></i> <span>17391010489</span></div>
+                    <div><i class="fas fa-envelope"></i> <span>2198442815@qq.com</span></div>
                 </div>
             </div>
-            <!-- 联系方式 -->
-            <div class="exp-item" style="border-left-color: #ff66ff;">
-                <div class="title"><i class="fas fa-mobile-alt"></i> 17391010489</div>
-                <div class="title"><i class="fas fa-envelope"></i> 2198442815@qq.com</div>
-            </div>
-            
-            <h2><i class="fas fa-graduation-cap"></i> 教育背景</h2>
-            <div class="exp-item">
-                <div class="title">南京邮电大学（双一流） 电子信息 硕士</div>
-                <div class="sub">2024.09 – 至今 · GPA: 前2.3%</div>
-                <div class="desc">深度学习、人工智能与数据挖掘、最优化方法、概率统计与随机过程</div>
-            </div>
-            <div class="exp-item">
-                <div class="title">南京邮电大学 电子信息工程 本科</div>
-                <div class="sub">2020.09 – 2024.06 · GPA: 前15%</div>
-                <div class="desc">数字图像处理与图像通信、扎实的数学基础</div>
-            </div>
 
-            <h2><i class="fas fa-trophy"></i> 荣誉奖项</h2>
-            <div class="honor-grid">
-                <span class="honor-item">华为杯数学建模 国二</span>
-                <span class="honor-item">国家奖学金</span>
-                <span class="honor-item">研究生一等奖学金</span>
-                <span class="honor-item">优秀研究生</span>
-                <span class="honor-item">国家励志奖学金(3次)</span>
-                <span class="honor-item">数模省三等奖</span>
-            </div>
-
-            <h2><i class="fas fa-users"></i> 社团和组织经历</h2>
-            <div class="exp-item">
-                <div class="title">党支部组织委员</div>
-                <div class="sub">通信学院14党支部 2024.09至今</div>
-            </div>
-            <div class="exp-item">
-                <div class="title">学生会办公室成员</div>
-                <div class="sub">2024.09-2025.09</div>
-            </div>
-            <div class="exp-item">
-                <div class="title">科协多媒体部PPT讲师</div>
-                <div class="sub">2021-2022</div>
-            </div>
-
-            <h2><i class="fas fa-microchip"></i> 技能/证书</h2>
-            <div class="exp-item">
-                <div><i class="fas fa-comment"></i> 英语: CET-4/6</div>
-                <div style="display:flex; flex-wrap:wrap; gap:4px; margin-top:8px;">
-                    <span class="badge">Office</span><span class="badge">飞书</span><span class="badge">Axure</span><span class="badge">Visio</span><span class="badge">Xmind</span>
-                    <span class="badge">Python</span><span class="badge">SQL</span><span class="badge">Matlab</span><span class="badge">Java</span><span class="badge">SPSS</span>
-                    <span class="badge">ChatGPT</span><span class="badge">Coze</span><span class="badge">计算机二级</span><span class="badge">AutoCAD</span>
+            <div class="edu-block">
+                <h3 style="display: flex; gap:6px; margin-bottom: 16px;"><i class="fas fa-graduation-cap" style="color: #1f6e41;"></i> 教育背景</h3>
+                <div class="edu-item">
+                    <div class="edu-year">2024.09 – 2027.06</div>
+                    <div class="edu-desc">
+                        <p>南京邮电大学 · 电子信息 (硕士)</p>
+                        <span class="note">GPA 前2.3%</span>
+                    </div>
+                </div>
+                <div class="edu-item">
+                    <div class="edu-year">2020.09 – 2024.06</div>
+                    <div class="edu-desc">
+                        <p>南京邮电大学 · 电子信息工程 (本科)</p>
+                        <span class="note">GPA 前15%</span>
+                    </div>
                 </div>
             </div>
-            <div class="divider"></div>
-            <div style="font-size:0.8rem; color:#6b93b0; text-align:center;">“ 用AI重构产品体验 ”</div>
+
+            <div class="award-list">
+                <span class="award-item">🏆 国家奖学金</span>
+                <span class="award-item">🏅 国家励志奖学金(3次)</span>
+                <span class="award-item">📊 华为杯数学建模二等奖</span>
+                <span class="award-item">🎓 研究生学业一等奖</span>
+            </div>
+
+            <div class="skillset">
+                <h3><i class="fas fa-microchip"></i> 大模型 / 平台</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">ChatGPT</span><span class="skill-tag">Gemini</span><span class="skill-tag">豆包</span>
+                    <span class="skill-tag">Coze</span><span class="skill-tag">Dify</span>
+                </div>
+                <h3><i class="fas fa-code"></i> 数据处理 / 开发</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">Python</span><span class="skill-tag">SQL</span><span class="skill-tag">Matlab</span>
+                    <span class="skill-tag">Java</span><span class="skill-tag">SPSS</span>
+                </div>
+                <h3><i class="fas fa-tools"></i> 办公/设计</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">Axure</span><span class="skill-tag">Visio</span><span class="skill-tag">Xmind</span>
+                    <span class="skill-tag">Office</span><span class="skill-tag">飞书</span>
+                </div>
+                <h3><i class="fas fa-language"></i> 语言/证书</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">CET-4/6</span><span class="skill-tag">计算机二级(C/Office)</span>
+                    <span class="skill-tag">普通话二甲</span><span class="skill-tag">AutoCAD中级</span>
+                </div>
+            </div>
+
+            <!-- 社团和组织经历精简展示 (可放小标签) -->
+            <div style="margin-top: 20px;">
+                <span style="background: #bae0bc; padding: 8px 14px; border-radius: 40px; display: inline-block; font-size: 0.85rem;">
+                    <i class="fas fa-users"></i> 党支部组织委员 · 学生会 · 科协PPT讲师
+                </span>
+            </div>
         </div>
 
-        <!-- 中间：项目经历 (时间线倒序) 从最近到过去 -->
-        <div class="col mid-col">
-            <h2><i class="fas fa-code-branch"></i> 项目经历·时间线</h2>
+        <!-- 中间：项目经历 (时间线倒序) 使用简历中最新的项目排上面 -->
+        <div class="mid-panel">
+            <div class="timeline-title">
+                <i class="fas fa-project-diagram"></i>
+                <h2><span class="glow-text">项目经历 · 时间线</span></h2>
+            </div>
             <div class="timeline">
-                <!-- 1. 最近：青柚社团小程序优化 (2025-04) -->
-                <div class="timeline-node">
-                    <div class="project-card">
-                        <div class="project-date"><i class="far fa-calendar-alt"></i> 2024.09 – 2025.04</div>
-                        <div class="project-name">青柚社团小程序优化 <span style="font-size:0.8rem; background:#0a2a2a; padding:2px 8px; border-radius:20px;">产品经理</span></div>
+                <!-- 项目1: AI简历助手 (2026-01) 最新 -->
+                <div class="timeline-item">
+                    <span class="timeline-marker"></span>
+                    <div class="timeline-date">2026.01 — 至今</div>
+                    <div class="timeline-content">
+                        <h4>AI简历助手 · 基于Coze <span style="font-size: 0.85rem; background: #d0ecce; padding: 3px 10px; border-radius: 20px; margin-left: 10px;">项目负责人</span></h4>
+                        <p style="color: #2b4f38;">面向求职场景，搭建知识库+RAG+工作流，部署个人简历展示页</p>
                         <div class="project-stats">
-                            <span class="stat-item"><i class="fas fa-chart-line"></i> 使用率↑46%</span>
-                            <span class="stat-item"><i class="fas fa-star"></i> 好评率83%</span>
-                            <span class="stat-item"><i class="fas fa-users"></i> 报名↑40%</span>
-                            <span class="stat-item"><i class="fas fa-crown"></i> 成果质量↑13%</span>
-                        </div>
-                        <div style="color:#b0d0ff; font-size:0.85rem; margin-top:12px;">
-                            <i class="fas fa-check-circle" style="color:cyan;"></i> 挖掘签到/成果上传核心痛点 · 竞品分析 · MVP两阶段 · PRD+Axure原型 · 项目管理上线
+                            <span class="stat"><i class="fas fa-database"></i> 33条知识沉淀</span>
+                            <span class="stat"><i class="fas fa-comments"></i> 8类面试问题</span>
+                            <span class="stat"><i class="fas fa-rotate"></i> 4轮优化</span>
+                            <span class="stat"><i class="fas fa-globe"></i> 1个可访问站点</span>
                         </div>
                     </div>
                 </div>
-
-                <!-- 2. 高速列车轴承智能故障诊断 (2023-06) -->
-                <div class="timeline-node">
-                    <div class="project-card">
-                        <div class="project-date"><i class="far fa-calendar-alt"></i> 2023.03 – 2023.06</div>
-                        <div class="project-name">高速列车轴承智能故障诊断 <span style="font-size:0.8rem; background:#0a2a2a; padding:2px 8px; border-radius:20px;">项目负责人</span></div>
+                <!-- 项目2: 青柚社团小程序优化 (2024-09 ~ 2025-04) -->
+                <div class="timeline-item">
+                    <span class="timeline-marker"></span>
+                    <div class="timeline-date">2024.09 – 2025.04</div>
+                    <div class="timeline-content">
+                        <h4>青柚社团小程序优化 · 产品经理</h4>
+                        <p>需求挖掘、PRD、Axure原型，推动社团数字化升级</p>
                         <div class="project-stats">
-                            <span class="stat-item"><i class="fas fa-microchip"></i> 测试准确率92%</span>
-                            <span class="stat-item"><i class="fas fa-chart-bar"></i> 无标签适配</span>
-                            <span class="stat-item"><i class="fas fa-robot"></i> PSO+多模型</span>
-                        </div>
-                        <div style="color:#b0d0ff; font-size:0.85rem; margin-top:12px;">
-                            数据预处理(去噪/滤波) · RandomForest/XGBoost/LSTM · PSO超参数 · 论文撰写
+                            <span class="stat"><i class="fas fa-chart-line"></i> 使用率↑45.8%</span>
+                            <span class="stat"><i class="fas fa-star"></i> 好评率82.6%</span>
+                            <span class="stat"><i class="fas fa-user-plus"></i> 报名↑38.7%</span>
+                            <span class="stat"><i class="fas fa-medal"></i> 成果质量↑12.6%</span>
                         </div>
                     </div>
                 </div>
-
-                <!-- 还可以加一个之前经历占位，但简历里只有两个大项目，可以加一个实习项目展示更多时间线，或者保持两个但视觉丰富。但简历中主要两个，为了布局可以适当添加第三个亮点。不过不能编造，可以使用科研项目：但这里可以再写一个本科期间项目以填充时间线，但简历中未体现，但可以留出鼓励，但我完全尊重简历原文。我们可以添加一个校园项目作为数字但保留技术，使用上面的荣誉? 为保持真实，只写两个，但时间线布局同样好看。也可以加入一个“基于深度学习的图像处理”研究，但简历未体现。作为产品展示，我可以将“高速列车”和“青柚”之间加一个虚线间隔，但已足够。为了时间线丰富，增加一个本科毕业设计之类？慎重。但简历内容里竞赛也算，不过就展示这两个已很优秀。-->
-
-                <!-- 为了时间线有连贯性，加一个未来/其他项目？ 不妥。 但考虑到视觉，再加一个“华为杯数学建模竞赛”项目，体现AI建模能力，它也是项目经历的一种，不过荣誉中有。但简历有数学建模经历，我可以写一个数学建模项目 2025华为杯，但没具体描述，但简历有国家级二等奖。可以展示为“研究生数学建模竞赛：多模态轨迹识别”，添加一点描述和成功数据，但请允许我增加一个不偏离事实的项目: 因为简历里提到华为杯国二，但没写细节，我可以基于此写个科研项目，增加时间线密度。但不可虚构过多。为了动效好看，还是严格遵守简历。也可以增加一个“社团组织”经历，但属于项目？ 我决定只保留简历明确的两个项目，但可以在时间线上标明“更多项目详询”，但这有点画蛇添足。暂且两个项目，足够聚焦。-->
+                <!-- 项目3: 高速列车轴承智能故障诊断 (2023-03 ~ 2023-06) -->
+                <div class="timeline-item">
+                    <span class="timeline-marker"></span>
+                    <div class="timeline-date">2023.03 – 2023.06</div>
+                    <div class="timeline-content">
+                        <h4>高速列车轴承智能故障诊断 · 项目负责人</h4>
+                        <p>数据预处理、多模型对比、PSO优化，完成智能诊断方案</p>
+                        <div class="project-stats">
+                            <span class="stat"><i class="fas fa-microchip"></i> RF/XGBoost/LSTM</span>
+                            <span class="stat"><i class="fas fa-check-circle"></i> 准确率92.3%</span>
+                            <span class="stat"><i class="fas fa-wave-square"></i> 小波去噪/PSO寻优</span>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <!-- 加个未来目标占位 -->
-            <div style="margin-top:20px; background:rgba(0,255,255,0.02); border-radius:30px; padding:15px; border:1px dashed cyan; text-align:center;">
-                <i class="fas fa-rocket" style="color:cyan;"></i> 更多AI产品项目持续迭代中 ...
+            <!-- 增加一个AI发展近况小标签 体现动态 -->
+            <div style="margin-top: 32px; background: #daf0d3; border-radius: 40px; padding: 12px 20px; font-size: 0.9rem; border:1px solid #7faF7a;">
+                <i class="fas fa-sync-alt fa-spin" style="margin-right: 10px; color:#1b723b;"></i> 
+                <span>✨ AI近况: 多模态Agents · 轻量RAG · Coze/ Dify 快速落地 — 与我的实践紧密结合</span>
             </div>
         </div>
 
-        <!-- 右侧：AI对话 + 炫酷动效 (嵌入coze iframe) 完全按照要求样式修改 -->
-        <div class="col right-col" style="padding: 18px 12px;">
-            <div class="ai-label">
-                <i class="fas fa-brain"></i> 
-                <span>AI 助手 · 智能对话</span>
-                <i class="fas fa-circle-nodes" style="margin-left:auto; color:#ff66ff;"></i>
+        <!-- 右侧：AI对话 iframe (嵌入指定coze链接) 修改样式匹配 -->
+        <div class="right-panel">
+            <div class="ai-header">
+                <i class="fas fa-robot ai-pulse"></i>
+                <h3>AI 面试官 · Coze助手</h3>
+                <span>⚡ 智能体</span>
             </div>
-            <!-- 嵌入coze iframe，加上科技边框和动效。尺寸自适应 -->
-            <div class="coze-container">
+            <!-- 按照要求嵌入coze iframe，并微调适配绿色风格（加一层轻微包裹） -->
+            <div class="coze-wrapper">
                 <iframe 
-                    src="https://www.coze.cn/s/Gjqx2FBmkzg/" 
-                    style="width: 100%; height: 100%; min-height: 600px; background: #030f18;" 
-                    frameborder="0" 
-                    allow="microphone">
+                    src="https://www.coze.cn/s/Gjqx2FBmkzg/"
+                    allow="microphone"
+                    title="coze-ai-assistant"
+                    style="background: #ffffff; border-radius: 20px;">
                 </iframe>
             </div>
-            <div style="display:flex; gap:15px; margin-top: 15px; justify-content: center; color:#6ba5ff;">
-                <i class="fas fa-bolt" style="animation: pulse 1.5s infinite;"></i>
-                <i class="fas fa-wave-square" style="animation: pulse 2s infinite reverse;"></i>
-                <i class="fas fa-satellite-dish"></i>
+            <!-- 底部浮动的AI文字提醒，增加炫酷感 -->
+            <div style="margin-top: 12px; display: flex; gap: 6px; font-size: 0.75rem; color: #28633e; justify-content: flex-end;">
+                <i class="fas fa-circle" style="color: #62b179; font-size: 0.4rem; align-self: center;"></i> 在线智能体 · 7x24h
+                <i class="fas fa-bolt" style="color: #f5b342; margin-left: 8px;"></i>
             </div>
         </div>
     </div>
 
-    <style>
-        /* 额外的动效 */
-        @keyframes pulse {
-            0% { opacity: 0.5; text-shadow: 0 0 5px cyan; }
-            50% { opacity: 1; text-shadow: 0 0 20px magenta, 0 0 30px cyan; }
-            100% { opacity: 0.5; text-shadow: 0 0 5px cyan; }
-        }
-        .fa-bolt, .fa-wave-square, .fa-satellite-dish {
-            filter: drop-shadow(0 0 8px cyan);
-        }
-        /* 微调滚动条 */
-        .col {
-            scrollbar-width: thin;
-        }
-    </style>
-    <!-- 确保 iframe 全显，无滚动条干扰 -->
+    <!-- 一些小点缀：浮动数字 (增强AI感) 放在边缘绝对定位 -->
+    <div style="position: absolute; bottom: 18px; left: 24px; z-index: 10; color: #558b6e; font-weight: 300; font-size: 0.8rem; opacity: 0.5;">
+        <i class="fas fa-circle-nodes"></i>  AI evolution  ·  multi-agent  ·  RAG
+    </div>
+    <div style="position: absolute; top: 20px; right: 30px; z-index: 10; color: #397a51; font-size: 1rem; opacity: 0.4; rotate: 10deg;">
+        {  green AI  }
+    </div>
+
+    <!-- 确保iframe交互时无边界溢出，页面保持一屏 -->
+    <script>
+        // 简单保证右侧iframe容器高度自适应，无需额外操作 (flex搞定)
+        // 动态背景粒子增加几个 (已存在)
+    </script>
 </body>
 </html>
